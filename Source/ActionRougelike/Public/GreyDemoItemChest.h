@@ -3,17 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GreyDemoGameplayInterface.h"
 #include "GameFramework/Actor.h"
 #include "GreyDemoItemChest.generated.h"
 
 class UStaticMeshComponent;
 
 UCLASS()
-class ACTIONROUGELIKE_API AGreyDemoItemChest : public AActor
+class ACTIONROUGELIKE_API AGreyDemoItemChest : public AActor,public IGreyDemoGameplayInterface
 {
 	GENERATED_BODY()
-	
-public:	
+
+	void Interact_Implementation(APawn* InstigatorPawn);
+public:
+
+	UPROPERTY(EditAnywhere)
+	float TargetPitch;
 	// Sets default values for this actor's properties
 	AGreyDemoItemChest();
 
