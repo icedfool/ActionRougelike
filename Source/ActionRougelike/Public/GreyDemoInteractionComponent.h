@@ -6,7 +6,6 @@
 #include "Components/ActorComponent.h"
 #include "GreyDemoInteractionComponent.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ACTIONROUGELIKE_API UGreyDemoInteractionComponent : public UActorComponent
 {

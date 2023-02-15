@@ -2,6 +2,7 @@
 
 #include "GreyDemoGameplayInterface.h"
 #include "GreyDemoInteractionComponent.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values for this component's properties
 UGreyDemoInteractionComponent::UGreyDemoInteractionComponent()
@@ -39,28 +40,42 @@ void UGreyDemoInteractionComponent::PrimaryInteract()
 
 	AActor* MyOwner = GetOwner();
 
-	/*
-	 *FVector Start;
-	  FVector End;
-	 */
-
 	FVector EyeLocation;
 	FRotator EyeRotation;
 	MyOwner->GetActorEyesViewPoint(EyeLocation, EyeRotation);
 
 	FVector End = EyeLocation + (EyeRotation.Vector() * 1000);
 
-	FHitResult Hit;
-	GetWorld()->LineTraceSingleByObjectType(Hit, EyeLocation, End, ObjectQueryParams);
+	//FHitResult Hit;
+	//bool bBlockingHit = GetWorld()->LineTraceSingleByObjectType(Hit, EyeLocation, End, ObjectQueryParams);
 
-	AActor* HitActor = Hit.GetActor();
-	if (HitActor)
+	TArray<FHitResult> Hits;
+
+	float Radius = 30.0f;
+
+	FCollisionShape Shape;
+	Shape.SetSphere(Radius);
+
+	bool bBlockingHit = GetWorld()->SweepMultiByObjectType(Hits, EyeLocation, End, FQuat::Identity, ObjectQueryParams, Shape);
+
+	FColor LineColor = bBlockingHit ? FColor::Green : FColor::Red;
+
+	for(FHitResult Hit:Hits)
 	{
-		if (HitActor->Implements<UGreyDemoGameplayInterface>())
+		AActor* HitActor = Hit.GetActor();
+		if (HitActor)
 		{
-			APawn* MyPawn = Cast<APawn>(MyOwner);
+			if (HitActor->Implements<UGreyDemoGameplayInterface>())
+			{
+				APawn* MyPawn = Cast<APawn>(MyOwner);
 
-			IGreyDemoGameplayInterface::Execute_Interact(HitActor, MyPawn);
+				IGreyDemoGameplayInterface::Execute_Interact(HitActor, MyPawn);
+				break;
+			}
 		}
+		DrawDebugSphere(GetWorld(), EyeLocation, Radius, 32, LineColor, false, 2.0f);
 	}
+
+	
+	DrawDebugLine(GetWorld(),EyeLocation,End,FColor::Red,false,2.0f,0,2.0f);
 }

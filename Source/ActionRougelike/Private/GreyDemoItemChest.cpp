@@ -18,6 +18,7 @@ AGreyDemoItemChest::AGreyDemoItemChest()
 	TargetPitch = 110;
 }
 
+//rotate the chest when opened
 void AGreyDemoItemChest::Interact_Implementation(APawn* InstigatorPawn)
 {
 	LidMesh->SetRelativeRotation(FRotator(TargetPitch, 0, 0));
