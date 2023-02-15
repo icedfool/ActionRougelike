@@ -11,6 +11,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class UGreyDemoInteractionComponent;
+class UAnimMontage;
 
 UCLASS()
 class ACTIONROUGELIKE_API AGreyDemoCharacter : public ACharacter
@@ -19,8 +20,13 @@ class ACTIONROUGELIKE_API AGreyDemoCharacter : public ACharacter
 
 protected:
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Attack")
 	TSubclassOf<AActor>ProjectileClass;
+
+	UPROPERTY(EditAnywhere,Category = "Attack")
+	UAnimMontage* AttackAnim;
+
+	FTimerHandle TimerHandle_PrimaryAttack;
 
 public:
 	// Sets default values for this character's properties
@@ -45,6 +51,8 @@ protected:
 	void PrimaryAttack();
 
 	void PrimaryInteract();
+
+	void PrimaryAttack_TimeElapsed();
 
 public:	
 	// Called every frame
