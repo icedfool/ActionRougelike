@@ -3,7 +3,7 @@
 
 #include "GreyDemoCharacter.h"
 
-#include "AITestsCommon.h"
+#include "GreyDemoInteractionComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -22,6 +22,7 @@ AGreyDemoCharacter::AGreyDemoCharacter()
 	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
 	CameraComp->SetupAttachment(SpringArmComp);
 
+	InteractionComp = CreateDefaultSubobject<UGreyDemoInteractionComponent>("InteractionComp");
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
 	bUseControllerRotationYaw = false;
@@ -54,6 +55,7 @@ void AGreyDemoCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &AGreyDemoCharacter::PrimaryAttack);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AGreyDemoCharacter::Jump);
+	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &AGreyDemoCharacter::PrimaryInteract);
 
 }
 
@@ -90,6 +92,16 @@ void AGreyDemoCharacter::PrimaryAttack()
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+}
+
+void AGreyDemoCharacter::PrimaryInteract()
+{
+	//actually not necessary checking nullptr since we know the lifetime of this object.
+	if(InteractionComp)
+	{
+		InteractionComp->PrimaryInteract();
+	}
+	
 }
 
 

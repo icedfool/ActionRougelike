@@ -24,5 +24,5 @@ class ACTIONROUGELIKE_API IGreyDemoGameplayInterface
 public:
 
 	UFUNCTION(BlueprintNativeEvent)
-		void Interact(APawn* InstigatorPawn);
+	void Interact(APawn* InstigatorPawn);
 };

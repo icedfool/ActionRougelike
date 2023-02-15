@@ -10,6 +10,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class UGreyDemoInteractionComponent;
 
 UCLASS()
 class ACTIONROUGELIKE_API AGreyDemoCharacter : public ACharacter
@@ -32,6 +33,8 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
 
+	UPROPERTY(VisibleAnywhere)
+	UGreyDemoInteractionComponent* InteractionComp;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -40,6 +43,8 @@ protected:
 	void MoveRight(float value);
 
 	void PrimaryAttack();
+
+	void PrimaryInteract();
 
 public:	
 	// Called every frame

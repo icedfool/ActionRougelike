@@ -14,11 +14,12 @@ class ACTIONROUGELIKE_API AGreyDemoItemChest : public AActor,public IGreyDemoGam
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditAnywhere)
+	float TargetPitch;
+
 	void Interact_Implementation(APawn* InstigatorPawn);
 public:
 
-	UPROPERTY(EditAnywhere)
-	float TargetPitch;
 	// Sets default values for this actor's properties
 	AGreyDemoItemChest();
 
