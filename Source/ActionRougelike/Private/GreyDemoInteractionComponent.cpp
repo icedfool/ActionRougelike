@@ -51,7 +51,7 @@ void UGreyDemoInteractionComponent::PrimaryInteract()
 
 	TArray<FHitResult> Hits;
 
-	float Radius = 30.0f;
+	float Radius = 30.f;
 
 	FCollisionShape Shape;
 	Shape.SetSphere(Radius);

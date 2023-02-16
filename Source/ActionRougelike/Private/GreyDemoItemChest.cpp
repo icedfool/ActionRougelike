@@ -2,6 +2,7 @@
 
 
 #include "GreyDemoItemChest.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 AGreyDemoItemChest::AGreyDemoItemChest()

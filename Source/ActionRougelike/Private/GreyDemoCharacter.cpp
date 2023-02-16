@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Pawn.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 AGreyDemoCharacter::AGreyDemoCharacter()
@@ -39,7 +40,6 @@ void AGreyDemoCharacter::BeginPlay()
 void AGreyDemoCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
